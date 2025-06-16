@@ -1,4 +1,4 @@
-﻿location_id,address,city,state,provider_name,latitude,longitude
+location_id,address,city,state,provider_name,latitude,longitude
 1,655 North Franklin St.,Tampa,FL,Tampa Electric,27.949597,-82.4586818
 2,2420 Bellevue Avenue,Daytona Beach,FL,Florida Power & Light,29.175092,-81.0650318
 3,220 S. Ridgewood Ave.,Daytona Beach,FL,Florida Power & Light,29.2078936,-81.021686
@@ -120,8 +120,8 @@
 119,950 Pacific Ave.,Tacoma,WA,Tacoma Power,47.2535728,-122.4390905
 120,1325 Fourth Avenue,Seattle,WA,Seattle City Light,47.6063288,-122.3331388
 121,4400 NE 77th Avenue,Vancouver,WA,Clark Public Utilities,45.6540242,-122.5948594
-122,1120 South Avenue,North Mankato,MN,Xcel Energy or CenterPoint Energy,44.167552,-94.0285828
-123,1715 Yankee Doodle Road,Eagan,MN,Dakota Electric or Xcel Energy,44.8336822,-93.1857138
+122,1120 South Avenue,North Mankato,MN,Xcel Energy,44.167552,-94.0285828
+123,1715 Yankee Doodle Road,Eagan,MN,Xcel Energy,44.8336822,-93.1857138
 124,5810 W. 78th St.,Bloomington,MN,Xcel Energy,44.8620725,-93.3721561
 125,901 Marquette Avenue,Minneapolis,MN,Xcel Energy,44.974187,-93.272526
 126,7301 Ohms Lane,Edina,MN,Xcel Energy,44.8700754,-93.3539129
@@ -183,7 +183,7 @@
 182,1605 Concentric Blvd.,Saginaw,MI,Consumers Energy,43.4789141,-83.9482044
 183,2851 Charlevoix Drive SE,Grand Rapids,MI,Consumers Energy,42.9120097,-85.5237053
 184,11405 North Community House Road,Charlotte,NC,Duke Energy,35.0575465,-80.8381664
-185,1598 Stokes Street,Wilkesboro,NC,Duke Energy or Blue Ridge Energy (EMC),36.144214,-81.189325
+185,1598 Stokes Street,Wilkesboro,NC,Duke Energy,36.144214,-81.189325
 186,5506 W. Friendly Ave.,Greensboro,NC,Duke Energy,36.0892085,-79.8825895
 187,7031 Albert Pick Road,Greensboro,NC,Duke Energy,36.0769776,-79.9496079
 188,1200 Main St,Kansas City,MO,Evergy,39.0996422,-94.583793
@@ -196,8 +196,8 @@
 195,7600 N. 16th Street,Phoenix,AZ,Arizona Public Service (APS),33.5482636,-112.0490909
 196,9237 East Via de Ventura,Scottsdale,AZ,Salt River Project (SRP),33.5500537,-111.8818076
 197,11711 N. Meridian Street,Carmel,IN,Duke Energy,39.9581929,-86.158038
-198,1320 North City Center Drive,Carmel,IN,Duke Energy or IMPA,39.9655772,-86.1538647
-199,11595 N. Meridian Street,Carmel,IN,Duke Energy or IMPA,39.9560759,-86.1580348
+198,1320 North City Center Drive,Carmel,IN,Duke Energy,39.9655772,-86.1538647
+199,11595 N. Meridian Street,Carmel,IN,Duke Energy,39.9560759,-86.1580348
 200,7609 West Jefferson Blvd,Fort Wayne,IN,Indiana Michigan Power (AEP),41.0406951,-85.2346468
 201,706 W. Main St.,Russellville,AR,Entergy Arkansas,35.2797699,-93.1393475
 202,2120 Riverfront Drive,Little Rock,AR,Entergy Arkansas,34.7712791,-92.3077912
