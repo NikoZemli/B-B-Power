@@ -30,7 +30,7 @@ def generic_scraper(driver, url):
     finally:
         driver.switch_to.default_content()
 
-# ---------- Example Specific Scrapers ----------
+# ---------- Specific Scrapers ----------
 def scrape_fpl(driver, lat, lon):
     driver.get("https://www.fplmaps.com/")
     time.sleep(5)
@@ -45,69 +45,80 @@ def scrape_fpl(driver, lat, lon):
     finally:
         driver.switch_to.default_content()
 
-def scrape_tampa(driver, lat, lon):
-    return generic_scraper(driver, "https://www.tampaelectric.com/outages/outagemap/")
-
-def scrape_duke_energy(driver, lat, lon):
-    return generic_scraper(driver, "https://outagemap.duke-energy.com/#/current-outages/fl")
-
-def scrape_centerpoint_energy(driver, lat, lon):
-    return generic_scraper(driver, "https://tracker.centerpointenergy.com/map/texas")
-
-def scrape_cps_energy(driver, lat, lon):
-    return generic_scraper(driver, "https://outagemap.cpsenergy.com/")
-
-def scrape_oncor(driver, lat, lon):
-    return generic_scraper(driver, "https://stormcenter.oncor.com/")
-
-def scrape_eversource(driver, lat, lon):
-    return generic_scraper(driver, "https://outagemap.eversource.com/")
-
-def scrape_national_grid(driver, lat, lon):
-    return generic_scraper(driver, "https://outagemap.ma.nationalgridus.com/")
-
-def scrape_national_grid_ny(driver, lat, lon):
-    return generic_scraper(driver, "https://outagemap.ny.nationalgridus.com/")
-
-def scrape_nyseg(driver, lat, lon):
-    return generic_scraper(driver, "https://outagemap.nyseg.com/")
-
-def scrape_rge(driver, lat, lon):
-    return generic_scraper(driver, "https://outagemap.rge.com/")
-
-def scrape_pseg_long_island(driver, lat, lon):
-    return generic_scraper(driver, "https://outagemap.psegliny.com/")
-
-def scrape_con_edison(driver, lat, lon):
-    return generic_scraper(driver, "https://apps.coned.com/stormcenter/external/default.html")
-
 # ---------- Dispatcher ----------
 def check_outage(driver, provider, lat, lon):
-    if provider == "Florida Power & Light":
+    known_scrapers = {
+        "Tampa Electric": "https://www.tampaelectric.com/outages/outagemap/",
+        "Duke Energy (FL)": "https://outagemap.duke-energy.com/#/current-outages/fl",
+        "CenterPoint Energy": "https://tracker.centerpointenergy.com/map/texas",
+        "CPS Energy": "https://outagemap.cpsenergy.com/",
+        "Austin Energy": "https://outagemap.austinenergy.com/",
+        "Oncor Electric Delivery": "https://stormcenter.oncor.com/",
+        "Grayson-Collin Electric Coop": "https://outage.ghcoop.com/",
+        "Eversource": "https://outagemap.eversource.com/",
+        "National Grid": "https://outagemap.ma.nationalgridus.com/",
+        "NYSEG": "https://outagemap.nyseg.com/",
+        "RG&E": "https://outagemap.rge.com/",
+        "PSEG Long Island": "https://outagemap.psegliny.com/",
+        "Con Edison": "https://apps.coned.com/stormcenter/external/default.html",
+        "Jersey Central Power and Light": "https://outages-nj.firstenergycorp.com/",
+        "Atlantic City Electric": "https://www.atlanticcityelectric.com/",
+        "Puget Sound Energy": "https://www.pse.com/en/outage/outage-map",
+        "Seattle City Light": "https://www.seattle.gov/city-light/outages",
+        "Tacoma Power": "https://www.mytpu.org/outages/",
+        "Xcel Energy": "https://www.outagemap-xcelenergy.com/outagemap/",
+        "Cleco Power": "https://myaccount.cleco.com/Portal/#/PreOutages",
+        "Entergy Louisiana": "https://www.etrviewoutage.com/map?state=LA",
+        "ComEd": "https://www.comed.com/outages/experiencing-an-outage/outage-map",
+        "Met-Ed": "https://outages.firstenergycorp.com/",
+        "PECO": "https://www.peco.com/outages/experiencing-an-outage/outage-map",
+        "PPL Electric Utilities": "https://omap.prod.pplweb.com/OMAP",
+        "We Energies": "https://www.we-energies.com/outagesummary/view/outagegrid",
+        "Madison Gas and Electric": "https://mge.smartcmobile.com/Outage/",
+        "Georgia Power": "https://outagemap.georgiapower.com/",
+        "Southern California Edison": "https://www.sce.com/outages-safety/outage-center/check-outage-status",
+        "Pacific Gas and Electric": "https://pgealerts.alerts.pge.com/outage-tools/outage-map/",
+        "Dominion Energy": "https://outagemap.dominionenergy.com/external/default.html",
+        "Toledo Edison": "https://outages.firstenergycorp.com/",
+        "Duke Energy (Ohio)": "https://outagemap.duke-energy.com/#/current-outages/ohky",
+        "DTE Energy": "https://outage.dteenergy.com/map/",
+        "Consumers Energy": "https://www.consumersenergy.com/Outagemap",
+        "Duke Energy (NC)": "https://outagemap.duke-energy.com/#/current-outages/ncsc",
+        "Evergy": "https://outagemap.evergy.com/",
+        "Ameren Missouri": "https://outagemap.ameren.com/",
+        "Salt River Project": "https://myaccount.srpnet.com/power/myaccount/outages",
+        "Arizona Public Service": "https://outagemap.aps.com/",
+        "Duke Energy (IN)": "https://outagemap.duke-energy.com/#/current-outages/in",
+        "Indiana Michigan Power": "https://www.indianamichiganpower.com/outages/",
+        "Entergy Arkansas": "https://www.etrviewoutage.com/map?state=AR",
+        "Portland General Electric": "https://portlandgeneral.com/outages",
+        "Pacific Power": "https://www.pacificpower.net/outages-safety.html",
+        "Louisville Gas and Electric": "https://stormcenter.lge-ku.com/",
+        "Kentucky Utilities": "https://stormcenter.lge-ku.com/",
+        "Central Maine Power": "https://outagemap.cmpco.com/",
+        "Public Service Company of Oklahoma": "https://outagemap.psoklahoma.com/",
+        "Oklahoma Gas and Electric": "https://kubra.io/stormcenter/views/8fe9d356-96bc-41f1-b353-6720eb408936/",
+        "Dominion Energy South Carolina": "https://outagemap.dominionenergy.com/external/default.html",
+        "Duke Energy (SC)": "https://outagemap.duke-energy.com/#/current-outages/sc",
+        "Middle Tennesee Electric": "https://www.mte.com/ServiceConcerns",
+        "Eversource Energy": "https://outagemap.eversource.com/external/default.html",
+        "Rhode Island Energy": "https://outagemap.rienergy.com/omap",
+        "Public Service Company of New Mexico": "https://www.pnm.com/outages",
+        "NV Energy": "https://www.nvenergy.com/outages-and-emergencies/view-current-outages/",
+        "Northwestern Energy": "https://retirees-test.northwesternenergy.com/outages/outage-map",
+        "Montana-Dakota Utilities Co.": "https://customer.montana-dakota.com/outage-map",
+        "Idaho Power": "https://tools.idahopower.com/outage",
+        "MidAmerican Energy": "https://www.midamericanenergy.com/OutageWatch/dsk.html",
+        "Hawaiian Electric": "https://www.hawaiianelectric.com/safety-and-outages/power-outages/oahu-outage-map",
+        "Rocky Mountain Power": "https://www.rockymountainpower.net/outages-safety.html",
+        "Baltimore gas and Electric": "https://outagemap.bge.com/",
+        "Green Mountain Power": "https://outagemap.greenmountainpower.com/"
+    }
+
+    if provider == "Florida Power and Light":
         return scrape_fpl(driver, lat, lon)
-    elif provider == "Tampa Electric":
-        return scrape_tampa(driver, lat, lon)
-    elif provider == "Duke Energy":
-        return scrape_duke_energy(driver, lat, lon)
-    elif provider == "CenterPoint Energy":
-        return scrape_centerpoint_energy(driver, lat, lon)
-    elif provider == "CPS Energy":
-        return scrape_cps_energy(driver, lat, lon)
-    elif provider == "Oncor Electric Delivery":
-        return scrape_oncor(driver, lat, lon)
-    elif provider == "Eversource":
-        return scrape_eversource(driver, lat, lon)
-    elif provider == "National Grid":
-        return scrape_national_grid(driver, lat, lon)
-    elif provider == "National Grid NY":
-        return scrape_national_grid_ny(driver, lat, lon)
-    elif provider == "NYSEG":
-        return scrape_nyseg(driver, lat, lon)
-    elif provider == "RGE":
-        return scrape_rge(driver, lat, lon)
-    elif provider == "PSEG Long Island":
-        return scrape_pseg_long_island(driver, lat, lon)
-    elif provider == "Con Edison":
-        return scrape_con_edison(driver, lat, lon)
+    elif provider in known_scrapers:
+        return generic_scraper(driver, known_scrapers[provider])
     else:
+        print(f"[WARN] No scraper implemented for provider: {provider}")
         return None
