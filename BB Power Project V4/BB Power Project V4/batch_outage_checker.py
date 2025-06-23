@@ -21,15 +21,22 @@ def setup_driver():
         logging.error(f"Driver setup failed: {e}")
         raise
 
-# ---------- Normalize Provider Names ----------
 def normalize_provider_name(provider):
     mapping = {
-        "duke energy": "Duke Energy (FL)",
+       "duke energy": "Duke Energy (FL)",
+        "duke energy fl": "Duke Energy (FL)",
+        "duke energy florida": "Duke Energy (FL)",
+        "duke energy oh": "Duke Energy (OH)",
+        "duke energy ohio": "Duke Energy (OH)",
+        "duke energy in": "Duke Energy (IN)",
+        "duke energy indiana": "Duke Energy (IN)",
+        "duke energy carolinas": "Duke Energy (NC/SC)",
         "oncor electric delivery": "Oncor Electric Delivery",
         "grayson-collin electric coop": "Grayson-Collin Electric Coop",
-        "jcp&l (jersey central power & light)": "Jersey Central Power and Light",
+        "jcp&l": "JCP&L",
+        "jcp&l (jersey central power & light)": "JCP&L",
         "green mountain power": "Green Mountain Power",
-        "pse&g": "Jersey Central Power and Light",
+        "pse&g": "PSEG",
         "peco (exelon)": "PECO",
         "met-ed (firstenergy)": "Met-Ed",
         "atlantic city electric": "Atlantic City Electric",
@@ -46,7 +53,9 @@ def normalize_provider_name(provider):
         "eversource energy": "Eversource",
         "national grid": "National Grid",
         "nyseg (new york state electric & gas)": "NYSEG",
+        "nyseg": "NYSEG",
         "rg&e (rochester gas & electric)": "RG&E",
+        "rge": "RG&E",
         "pseg long island": "PSEG Long Island",
         "seattle city light": "Seattle City Light",
         "tacoma power": "Tacoma Power",
@@ -71,15 +80,32 @@ def normalize_provider_name(provider):
         "midamerican energy": "MidAmerican Energy",
         "hawaiian electric": "Hawaiian Electric",
         "baltimore gas and electric": "Baltimore Gas and Electric",
-        "florida power & light": "Florida Power and Light"  # ADD THIS FOR YOUR CSV!
+        "florida power & light": "Florida Power and Light",
+        "louisville gas & electric (lg&e)": "Louisville Gas and Electric",
+        "kentucky utilities (ku)": "Kentucky Utilities",
+        "toledo edison (firstenergy)": "Toledo Edison",
+        "middle tennessee electric (mte)": "Middle Tennessee Electric",
+        "oklahoma gas & electric (og&e)": "Oklahoma Gas and Electric",
+        "puget sound energy (pse)": "Puget Sound Energy",
+        "city of tallahassee utilities": "City of Tallahassee Utilities",
+        "wakefield municipal gas & light department": "Wakefield Municipal Gas & Light Department",
+        "greenfield light & power (municipal)": "Greenfield Light & Power",
+        "westfield gas & electric (municipal)": "Westfield Gas & Electric",
+        "grant county pud": "Grant County PUD",
+        "clark public utilities": "Clark Public Utilities",
+        "eugene water & electric board (eweb)": "EWEB",
+        "warren rural electric cooperative corporation (wrecc)": "WRECC",
+        "municipal utility board of pryor": "Municipal Utility Board of Pryor",
+        "alectra utilities corporation": "Alectra Utilities Corporation",
+        "fort collins utilities": "Fort Collins Utilities",
+        "duquesne light": "Duquesne Light",
+        "sawnee emc": "Sawnee EMC",
     }
     return mapping.get(provider.strip().lower(), provider.strip())
-
 
 # ---------- Known Scraper URLs ----------
 known_scrapers = {
     "Tampa Electric": "https://www.tampaelectric.com/outages/outagemap/",
-    "Duke Energy (FL)": "https://outagemap.duke-energy.com/#/current-outages/fl",
     "CenterPoint Energy": "https://tracker.centerpointenergy.com/map/texas",
     "CPS Energy": "https://outagemap.cpsenergy.com/",
     "Austin Energy": "https://outagemap.austinenergy.com/",
@@ -90,6 +116,7 @@ known_scrapers = {
     "NYSEG": "https://outagemap.nyseg.com/",
     "RG&E": "https://outagemap.rge.com/",
     "PSEG Long Island": "https://outagemap.psegliny.com/",
+    "PSEG": "https://outagecenter.pseg.com/external/default.html",
     "Con Edison": "https://apps.coned.com/stormcenter/external/default.html",
     "Jersey Central Power and Light": "https://outages-nj.firstenergycorp.com/",
     "Atlantic City Electric": "https://www.atlanticcityelectric.com/",
@@ -110,15 +137,12 @@ known_scrapers = {
     "Pacific Gas and Electric": "https://pgealerts.alerts.pge.com/outage-tools/outage-map/",
     "Dominion Energy": "https://outagemap.dominionenergy.com/external/default.html",
     "Toledo Edison": "https://outages.firstenergycorp.com/",
-    "Duke Energy (Ohio)": "https://outagemap.duke-energy.com/#/current-outages/ohky",
     "DTE Energy": "https://outage.dteenergy.com/map/",
     "Consumers Energy": "https://www.consumersenergy.com/Outagemap",
-    "Duke Energy (NC)": "https://outagemap.duke-energy.com/#/current-outages/ncsc",
     "Evergy": "https://outagemap.evergy.com/",
     "Ameren Missouri": "https://outagemap.ameren.com/",
     "Salt River Project": "https://myaccount.srpnet.com/power/myaccount/outages",
     "Arizona Public Service": "https://outagemap.aps.com/",
-    "Duke Energy (IN)": "https://outagemap.duke-energy.com/#/current-outages/in",
     "Indiana Michigan Power": "https://www.indianamichiganpower.com/outages/",
     "Entergy Arkansas": "https://www.etrviewoutage.com/map?state=AR",
     "Portland General Electric": "https://portlandgeneral.com/outages",
@@ -129,8 +153,7 @@ known_scrapers = {
     "Public Service Company of Oklahoma": "https://outagemap.psoklahoma.com/",
     "Oklahoma Gas and Electric": "https://kubra.io/stormcenter/views/8fe9d356-96bc-41f1-b353-6720eb408936/",
     "Dominion Energy South Carolina": "https://outagemap.dominionenergy.com/external/default.html",
-    "Duke Energy (SC)": "https://outagemap.duke-energy.com/#/current-outages/sc",
-    "Middle Tennesee Electric": "https://www.mte.com/ServiceConcerns",
+    "Middle Tennessee Electric": "https://mtemc.outagemap.coop/",
     "Eversource Energy": "https://outagemap.eversource.com/external/default.html",
     "Rhode Island Energy": "https://outagemap.rienergy.com/omap",
     "Public Service Company of New Mexico": "https://www.pnm.com/outages",
@@ -142,9 +165,23 @@ known_scrapers = {
     "Hawaiian Electric": "https://www.hawaiianelectric.com/safety-and-outages/power-outages/oahu-outage-map",
     "Rocky Mountain Power": "https://www.rockymountainpower.net/outages-safety.html",
     "Baltimore Gas and Electric": "https://outagemap.bge.com/",
-    "Green Mountain Power": "https://outagemap.greenmountainpower.com/"
+    "Green Mountain Power": "https://outagemap.greenmountainpower.com/",
+    "City of Tallahassee Utilities": "https://outagemap.talgov.com/",
+    "Wakefield Municipal Gas & Light Department": "https://wmgld.com/outages/",
+    "Duke Energy (FL)": "https://outagemap.duke-energy.com/#/current-outages/fl",
+    "Duke Energy (OH)": "https://outagemap.duke-energy.com/#/current-outages/ohky",
+    "Duke Energy (IN)": "https://outagemap.duke-energy.com/#/current-outages/in",
+    "Duke Energy (NC/SC)": "https://outagemap.duke-energy.com/#/current-outages/ncsc",
+    "Wakefield Municipal Gas & Light Department": "https://wmgld.com/outages/",
+    "Greenfield Light & Power": "https://ebill.glps.net/maps/public/OutageWebMap/",
+    "Clark Public Utilities": "https://www.clarkpublicutilities.com/outages/",
+    "EWEB": "https://www.eweb.org/outages-and-safety/power-outages/power-outage-map",
+    "Fort Collins Utilities": "https://fcgov.maps.arcgis.com/apps/dashboards/9149621ae4f840e1a5339c90c9c97256",
+    "Duquesne Light": "https://duquesnelight.com/outages-safety/current-outages",
+    "Sawnee EMC": "https://sawnee.outagemap.cloud.coop/",
+    "EWEB": "https://www.eweb.org/outages-and-safety/power-outages/power-outage-map",
+    "JCP&L": "https://outages-nj.firstenergycorp.com/",
 }
-
 # ---------- Scrapers ----------
 def generic_scraper(driver, url, provider=None):
     try:
@@ -237,17 +274,13 @@ if __name__ == "__main__":
 
     driver.quit()
 
+    output_fieldnames = ["Address", "Provider", "Latitude", "Longitude", "Outage Detected", "Notes"]
     with open("outage_results.csv", mode='w', newline='', encoding='utf-8-sig') as f:
-        writer = csv.DictWriter(f, fieldnames=["Address", "Provider", "Latitude", "Longitude", "Outage Detected", "Notes"])
+        writer = csv.DictWriter(f, fieldnames=output_fieldnames)
         writer.writeheader()
-        writer.writerows(output_rows)
+        for row in output_rows:
+            filtered_row = {key: row.get(key, "") for key in output_fieldnames}
+            writer.writerow(filtered_row)
 
     print("✅ Results saved to outage_results.csv")
 
-
-    with open("outage_results.csv", mode='w', newline='', encoding='utf-8-sig') as f:
-        writer = csv.DictWriter(f, fieldnames=["Provider", "Latitude", "Longitude", "Outage Detected", "Notes"])
-        writer.writeheader()
-        writer.writerows(output_rows)
-
-    print("✅ Results saved to outage_results.csv")
