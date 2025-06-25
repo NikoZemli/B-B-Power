@@ -8,7 +8,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from datetime import datetime
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from datetime import datetime
 
 # ---------- Setup ----------
 def setup_driver():
@@ -257,7 +259,8 @@ if __name__ == "__main__":
                     "Latitude": lat,
                     "Longitude": lon,
                     "Outage Detected": result,
-                    "Notes": note
+                    "Notes": note,
+                    "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 })
             except Exception as e:
                 err_msg = f"Error: {e}"
@@ -269,12 +272,13 @@ if __name__ == "__main__":
                     "Latitude": row.get("latitude"),
                     "Longitude": row.get("longitude"),
                     "Outage Detected": None,
-                    "Notes": err_msg
+                    "Notes": err_msg,
+                    "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 })
 
     driver.quit()
 
-    output_fieldnames = ["Address", "Provider", "Latitude", "Longitude", "Outage Detected", "Notes"]
+    output_fieldnames = ["Address", "Provider", "Latitude", "Longitude", "Outage Detected", "Notes", "Timestamp"]
     with open("outage_results.csv", mode='w', newline='', encoding='utf-8-sig') as f:
         writer = csv.DictWriter(f, fieldnames=output_fieldnames)
         writer.writeheader()
@@ -284,3 +288,69 @@ if __name__ == "__main__":
 
     print("✅ Results saved to outage_results.csv")
 
+
+def run_outage_check_cycle():
+    logging.basicConfig(filename="scraper_errors.log", level=logging.WARNING)
+    driver = setup_driver()
+    output_rows = []
+
+    with open("Long_Lat Locations.csv", newline='', encoding='utf-8-sig') as csvfile:
+        reader = csv.DictReader(csvfile)
+        print("DEBUG CSV HEADERS:", reader.fieldnames)
+        if "provider" not in reader.fieldnames or "latitude" not in reader.fieldnames or "longitude" not in reader.fieldnames:
+            raise KeyError(f"Expected headers missing. Found: {reader.fieldnames}")
+
+        for row in reader:
+            provider = row["provider"].strip()
+            try:
+                lat = float(row["latitude"])
+                lon = float(row["longitude"])
+                result, note = check_outage(driver, provider, lat, lon)
+                address = f"{row.get('address', '')}, {row.get('city', '')}, {row.get('state', '')}"
+                print(f"{provider} | {address} | Outage: {result} | Note: {note}")
+                output_rows.append({
+                    "Address": address,
+                    "Provider": provider,
+                    "Latitude": lat,
+                    "Longitude": lon,
+                    "Outage Detected": result,
+                    "Notes": note,
+                    "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+            except Exception as e:
+                err_msg = f"Error: {e}"
+                address = f"{row.get('address', '')}, {row.get('city', '')}, {row.get('state', '')}"
+                print(f"{address} | Failed | {err_msg}")
+                output_rows.append({
+                    "Address": address,
+                    "Provider": provider,
+                    "Latitude": row.get("latitude"),
+                    "Longitude": row.get("longitude"),
+                    "Outage Detected": None,
+                    "Notes": err_msg,
+                    "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+
+    driver.quit()
+
+    output_fieldnames = ["Address", "Provider", "Latitude", "Longitude", "Outage Detected", "Notes", "Timestamp"]
+    with open("outage_results.csv", mode='w', newline='', encoding='utf-8-sig') as f:
+        writer = csv.DictWriter(f, fieldnames=output_fieldnames)
+        writer.writeheader()
+        for row in output_rows:
+            filtered_row = {key: row.get(key, "") for key in output_fieldnames}
+            writer.writerow(filtered_row)
+
+    print("✅ Results saved to outage_results.csv")
+
+
+if __name__ == "__main__":
+    while True:
+        print("\n🔄 Running outage check cycle...")
+        try:
+            run_outage_check_cycle()
+        except Exception as e:
+            logging.error(f"⚠️ Error in loop: {e}")
+            print(f"⚠️ Error in loop: {e}")
+        print("⏱️ Waiting 10 minutes before next cycle...\n")
+        time.sleep(600)  # 10 minutes
