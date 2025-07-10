@@ -1,0 +1,75 @@
+provider,url,title,visible_shapes,status
+Tampa Electric,https://www.tampaelectric.com/outages/outagemap/,Outage Map,0,OK
+CenterPoint Energy,https://tracker.centerpointenergy.com/map/texas,ERROR: The request could not be satisfied,0,OK
+CPS Energy,https://outagemap.cpsenergy.com/,CPS Energy Outage Map,0,OK
+Austin Energy,https://outagemap.austinenergy.com/,Austin Energy Outage Map,0,OK
+Oncor Electric Delivery,https://stormcenter.oncor.com/,Oncor – Outage Map,0,OK
+Grayson-Collin Electric Coop,https://graysoncollin.outagemap.coop/,Loading Map,0,OK
+Eversource,https://outagemap.eversource.com/,Outage Map | Eversource,0,OK
+National Grid,https://outagemap.ma.nationalgridus.com/,Massachusetts Power Outage Map,0,OK
+NYSEG,https://outagemap.nyseg.com/,NYSEG - Outage Map,0,OK
+RG&E,https://outagemap.rge.com/,RG&E - Outage Map,0,OK
+PSEG Long Island,https://outagemap.psegliny.com/,PSEG Long Island Outage Map,0,OK
+PSEG,https://outagecenter.pseg.com/external/default.html,PSE&G Outage Map,0,OK
+Con Edison,https://apps.coned.com/stormcenter/external/default.html,Con Edison Outage Map,0,OK
+Jersey Central Power and Light,https://outages-nj.firstenergycorp.com/,FirstEnergy Storm Center NJ,0,OK
+Atlantic City Electric,https://www.atlanticcityelectric.com/,,0,OK
+Puget Sound Energy,https://www.pse.com/en/outage/outage-map,PSE | Outage Map and Restoration Times,0,OK
+Seattle City Light,https://www.seattle.gov/city-light/outages,View and Report Outages - City Light | seattle.gov,0,OK
+Tacoma Power,https://www.mytpu.org/outages/,Outages & Safety - Tacoma Public Utilities,0,OK
+Xcel Energy,https://www.outagemap-xcelenergy.com/outagemap/,Electric Outage Map │Xcel Energy,0,OK
+Cleco Power,https://myaccount.cleco.com/Portal/#/PreOutages,Cleco,0,OK
+Entergy Louisiana,https://www.etrviewoutage.com/map?state=LA,,0,OK
+ComEd,https://www.comed.com/outages/experiencing-an-outage/outage-map,,0,OK
+Met-Ed,https://outages.firstenergycorp.com/,Outages,0,OK
+PECO,https://www.peco.com/outages/experiencing-an-outage/outage-map,View Outage Map | PECO - An Exelon Company,0,OK
+PPL Electric Utilities,https://omap.prod.pplweb.com/OMAP,PPL Outage Map,0,OK
+We Energies,https://www.we-energies.com/outagesummary/view/outagegrid,Outage Map | We Energies,0,OK
+Madison Gas and Electric,https://mge.smartcmobile.com/Outage/,Outages,0,OK
+Georgia Power,https://outagemap.georgiapower.com/,GPC Outage Map,0,OK
+Southern California Edison,https://www.sce.com/outages-safety/outage-center/check-outage-status,Check Outage Status,0,OK
+Pacific Gas and Electric,https://pgealerts.alerts.pge.com/outage-tools/outage-map/,PG&E Outage Center - View Outage Map,0,OK
+Dominion Energy,https://outagemap.dominionenergy.com/external/default.html,Outage Map,0,OK
+Toledo Edison,https://outages.firstenergycorp.com/,Outages,0,OK
+DTE Energy,https://outage.dteenergy.com/map/,Outage Map | DTE Energy,0,OK
+Consumers Energy,https://www.consumersenergy.com/Outagemap,Consumers Energy Outage Map,0,OK
+Evergy,https://outagemap.evergy.com/,Outage Map | Evergy,0,OK
+Ameren Missouri,https://outagemap.ameren.com/,Outage Map | Ameren,0,OK
+Salt River Project,https://myaccount.srpnet.com/power/myaccount/outages,Outages | SRP Power,0,OK
+Arizona Public Service,https://outagemap.aps.com/,404 Not Found,0,OK
+Indiana Michigan Power,https://www.indianamichiganpower.com/outages/,Outages,0,OK
+Entergy Arkansas,https://www.etrviewoutage.com/map?state=AR,,0,OK
+Portland General Electric,https://portlandgeneral.com/outages,Oregon Power Outages and PGE Outage Map | PGE,0,OK
+Pacific Power,https://www.pacificpower.net/outages-safety.html,Outages & Safety,0,OK
+Louisville Gas and Electric,https://stormcenter.lge-ku.com/,LG&E and KU Outage Map,0,OK
+Kentucky Utilities,https://stormcenter.lge-ku.com/,LG&E and KU Outage Map,0,OK
+Central Maine Power,https://outagemap.cmpco.com/,Central Maine Power - Outage Map,0,OK
+Public Service Company of Oklahoma,https://outagemap.psoklahoma.com/,PSO Outage Map,0,OK
+Oklahoma Gas and Electric,https://kubra.io/stormcenter/views/8fe9d356-96bc-41f1-b353-6720eb408936/,Outage Map,0,OK
+Dominion Energy South Carolina,https://outagemap.dominionenergy.com/external/default.html,Outage Map,0,OK
+Middle Tennessee Electric,https://mtemc.outagemap.coop/,Loading Map,0,OK
+Eversource Energy,https://outagemap.eversource.com/external/default.html,Outage Map | Eversource,0,OK
+Rhode Island Energy,https://outagemap.rienergy.com/omap,RIE Outage Center,0,OK
+Public Service Company of New Mexico,https://www.pnm.com/outages,"PNM: Sorry, Your Page Was Not Found - pnmprod - pnm.com",0,OK
+NV Energy,https://www.nvenergy.com/outages-and-emergencies/view-current-outages/,View Current Outages | NV Energy,0,OK
+Northwestern Energy,https://northwesternenergy.com/outages/outage-map,NorthWestern Energy's current outage map and scheduled repairs | Outage Map,0,OK
+Montana-Dakota Utilities Co.,https://customer.montana-dakota.com/outage-map,Montana-Dakota Utilities - Outage Map,0,OK
+Idaho Power,https://tools.idahopower.com/outage,Outage Map - Idaho Power,0,OK
+MidAmerican Energy,https://www.midamericanenergy.com/OutageWatch/dsk.html,MEC Outage Watch,0,OK
+Hawaiian Electric,https://www.hawaiianelectric.com/safety-and-outages/power-outages/oahu-outage-map,Oahu Outage Map | Hawaiian Electric,0,OK
+Rocky Mountain Power,https://www.rockymountainpower.net/outages-safety.html,Outages & Safety,0,OK
+Baltimore Gas and Electric,https://outagemap.bge.com/,Baltimore Gas and Electric Storm Center,0,OK
+Green Mountain Power,https://greenmountainpower.com/outages/,Outage Center - Green Mountain Power,0,OK
+City of Tallahassee Utilities,https://outagemap.talgov.com/,Tallahassee Outage Map,0,OK
+Wakefield Municipal Gas & Light Department,https://wmgld.com/outages/,Wakefield Municipal Gas & Light Department,0,OK
+Duke Energy (FL),https://outagemap.duke-energy.com/#/current-outages/fl,Outage Map - Duke Energy,0,OK
+Duke Energy (OH),https://outagemap.duke-energy.com/#/current-outages/ohky,Outage Map - Duke Energy,0,OK
+Duke Energy (IN),https://outagemap.duke-energy.com/#/current-outages/in,Outage Map - Duke Energy,0,OK
+Duke Energy (NC/SC),https://outagemap.duke-energy.com/#/current-outages/ncsc,Outage Map - Duke Energy,0,OK
+Greenfield Light & Power,https://ebill.glps.net/maps/public/OutageWebMap/,Map Viewer,0,OK
+Clark Public Utilities,https://www.clarkpublicutilities.com/outages/,404 Error - Clark Public Utilities,0,OK
+EWEB,https://www.eweb.org/outages-and-safety/power-outages/power-outage-map,Power Outage Map | EWEB,0,OK
+Fort Collins Utilities,https://fcgov.maps.arcgis.com/apps/dashboards/9149621ae4f840e1a5339c90c9c97256,ArcGIS Dashboards,0,OK
+Duquesne Light,https://duquesnelight.com/outages-safety/current-outages,Outage Map,0,OK
+Sawnee EMC,https://sawnee.outagemap.cloud.coop/,Loading Map,0,OK
+JCP&L,https://outages-nj.firstenergycorp.com/,FirstEnergy Storm Center NJ,0,OK
