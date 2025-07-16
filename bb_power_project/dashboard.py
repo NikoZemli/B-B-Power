@@ -4,14 +4,6 @@ import folium
 from streamlit_folium import st_folium
 from streamlit_autorefresh import st_autorefresh
 import requests
-import threading
-
-def run_background_check():
-    import subprocess
-    subprocess.run(["python3", "BB Power Project V4/batch_outage_checker.py"])
-
-# Start the thread
-threading.Thread(target=run_background_check, daemon=True).start()
 
 # ── Outage history storage (standard-lib only) ────────────────────────────────
 import sqlite3, pathlib, datetime as dt
@@ -153,7 +145,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----- Load Data -----
-df = pd.read_csv("outage_status_results.csv")
+df = pd.read_csv("outage_results.csv")
 
 # ── Persist today’s status into the history DB ────────────────────────────────
 if {"Address", "Provider", "Outage Detected"}.issubset(df.columns):
@@ -294,7 +286,7 @@ if "Timestamp" in df.columns and not df["Timestamp"].isna().all():
     last_updated = pd.to_datetime(df["Timestamp"]).max()
 else:
     try:
-        mod_time = os.path.getmtime("outage_status_results.csv")
+        mod_time = os.path.getmtime("outage_results.csv")
         last_updated = datetime.fromtimestamp(mod_time)
     except:
         last_updated = None
