@@ -145,7 +145,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----- Load Data -----
-df = pd.read_csv("outage_results.csv")
+df = pd.read_csv("bb_power_project/outage_results.csv")
 
 # ── Persist today’s status into the history DB ────────────────────────────────
 if {"Address", "Provider", "Outage Detected"}.issubset(df.columns):
