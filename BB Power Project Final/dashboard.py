@@ -4,13 +4,8 @@ import folium
 from streamlit_folium import st_folium
 from streamlit_autorefresh import st_autorefresh
 import requests
-<<<<<<< HEAD
-=======
 import threading
 import subprocess
-from streamlit_autorefresh import st_autorefresh
-st_autorefresh(interval=60000, key="datarefresh")  # Refresh every 60 seconds
->>>>>>> fa2c8d8b3c31437c174312283cc75555abe6b480
 
 # ── Outage history storage (standard-lib only) ────────────────────────────────
 import sqlite3, pathlib, datetime as dt

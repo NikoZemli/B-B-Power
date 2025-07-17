@@ -203,7 +203,7 @@ with st.sidebar:
 st.markdown(f"""
     <div class="bb-banner">
         <div class="bb-header">
-            <h1>Brown and Brown Power Status Dashboard</h1>
+            <h1>Brown and Brown Commercial Power Status Dashboard</h1>
         </div>
     </div>
 """, unsafe_allow_html=True)
