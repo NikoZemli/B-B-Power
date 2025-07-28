@@ -5,7 +5,9 @@ from streamlit_folium import st_folium
 from streamlit_autorefresh import st_autorefresh
 import requests
 import os
-df = pd.read_csv(os.path.join(os.path.dirname(__file__), "outage_results.csv"))
+st.write("📁 Current directory:", os.getcwd())
+st.write("📂 Files in directory:", os.listdir())
+
 
 # ── Outage history storage (standard-lib only) ────────────────────────────────
 import sqlite3, pathlib, datetime as dt
