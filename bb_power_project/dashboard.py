@@ -149,7 +149,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----- Load Data -----
-df = pd.read_csv("outage_results.csv")
+import pathlib
+csv_path = pathlib.Path(__file__).parent / "outage_results.csv"
+df = pd.read_csv(csv_path)
 
 # ── Persist today’s status into the history DB ────────────────────────────────
 if {"Address", "Provider", "Outage Detected"}.issubset(df.columns):
