@@ -2,6 +2,8 @@
 
 A live, interactive Streamlit dashboard to monitor power outages across U.S. provider locations. Built for Brown & Brown Insurance Technology Solutions, this tool helps visualize and log outage events in real time to support operational resilience.
 
+Link: https://bbpowerdashboard.streamlit.app/
+
 ---
 
 ## 🚀 Features
