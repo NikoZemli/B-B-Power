@@ -150,14 +150,20 @@ import pathlib
 csv_path = pathlib.Path(__file__).parent / "outage_results.csv"
 df = pd.read_csv(csv_path)
 
-# 🔧 FIX: Clean and validate lat/lon columns
+# Clean up latitude/longitude
 df["Latitude"] = pd.to_numeric(df["Latitude"], errors="coerce")
 df["Longitude"] = pd.to_numeric(df["Longitude"], errors="coerce")
-df = df.dropna(subset=["Latitude", "Longitude"])  # Remove rows with invalid lat/lon
+df = df.dropna(subset=["Latitude", "Longitude"])
 
-# 🔍 DEBUG: Show raw data after cleaning
-st.write("✅ Valid coordinates loaded:", df[["Address", "Latitude", "Longitude"]].head())
-st.write("📍 Number of valid locations on map:", len(df))
+# 🔧 Normalize Outage Detected column
+if "Outage Detected" in df.columns:
+    df["Outage Detected"] = df["Outage Detected"].fillna(False)
+    df["Outage Detected"] = df["Outage Detected"].astype(bool)
+
+# Debug
+st.write("✅ Data preview after full normalization:", df.head())
+st.write("📍 Number of valid rows for mapping:", len(df))
+
 
 # ── Persist today’s status into the history DB ────────────────────────────────
 if {"Address", "Provider", "Outage Detected"}.issubset(df.columns):
@@ -350,5 +356,6 @@ st.data_editor(
     hide_index=True,
     disabled=True      # read-only, just like the live table
 )
+
 
 
