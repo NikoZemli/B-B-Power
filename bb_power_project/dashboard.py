@@ -159,23 +159,19 @@ df = df.dropna(subset=["Latitude", "Longitude"])
 if "Outage Detected" in df.columns:
     df["Outage Detected"] = df["Outage Detected"].fillna(False).astype(bool)
 
-# ✅ Convert Timestamp if exists
-if "Timestamp" in df.columns:
+# Optional time filter (SAFE)
+if "Timestamp" in df.columns and not df["Timestamp"].isna().all():
     df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+    st.markdown("### ⏱️ Time Filter")
+    hours = st.slider("Show data from past X hours", min_value=1, max_value=72, value=24)
+    cutoff_time = pd.Timestamp.now() - pd.Timedelta(hours=hours)
 
-
-
-# ── Persist today’s status into the history DB ────────────────────────────────
-if {"Address", "Provider", "Outage Detected"}.issubset(df.columns):
-    for _, row in df.iterrows():
-        if row["Outage Detected"]:
-            log_outage(row["Address"], row["Provider"])
-        else:
-            resolve_outage(row["Address"], row["Provider"])
-
-# Convert 'Timestamp' column to datetime if it exists
-if "Timestamp" in df.columns:
-    df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+    # Don't apply filter if it would wipe out all rows
+    filtered_df = df[df["Timestamp"] >= cutoff_time]
+    if not filtered_df.empty:
+        df = filtered_df
+    else:
+        st.warning("⚠️ No data within the selected time window — showing all data instead.")
 
 
 # ----- Sidebar Filters -----
@@ -356,6 +352,7 @@ st.data_editor(
     hide_index=True,
     disabled=True      # read-only, just like the live table
 )
+
 
 
 
