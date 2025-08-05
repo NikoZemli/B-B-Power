@@ -150,19 +150,19 @@ import pathlib
 csv_path = pathlib.Path(__file__).parent / "outage_results.csv"
 df = pd.read_csv(csv_path)
 
-# Clean up latitude/longitude
+# ✅ Clean coordinates
 df["Latitude"] = pd.to_numeric(df["Latitude"], errors="coerce")
 df["Longitude"] = pd.to_numeric(df["Longitude"], errors="coerce")
 df = df.dropna(subset=["Latitude", "Longitude"])
 
-# 🔧 Normalize Outage Detected column
+# ✅ Normalize outage column
 if "Outage Detected" in df.columns:
-    df["Outage Detected"] = df["Outage Detected"].fillna(False)
-    df["Outage Detected"] = df["Outage Detected"].astype(bool)
+    df["Outage Detected"] = df["Outage Detected"].fillna(False).astype(bool)
 
-# Debug
-st.write("✅ Data preview after full normalization:", df.head())
-st.write("📍 Number of valid rows for mapping:", len(df))
+# ✅ Convert Timestamp if exists
+if "Timestamp" in df.columns:
+    df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+
 
 
 # ── Persist today’s status into the history DB ────────────────────────────────
@@ -356,6 +356,7 @@ st.data_editor(
     hide_index=True,
     disabled=True      # read-only, just like the live table
 )
+
 
 
 
