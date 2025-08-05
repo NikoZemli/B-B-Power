@@ -189,12 +189,19 @@ with st.sidebar:
     if address_filter:
         df = df[df["Address"].str.contains(address_filter, case=False, na=False)]
 
-    # Optional time filter
-    if "Timestamp" in df.columns:
-        st.markdown("### ⏱️ Time Filter")
-        hours = st.slider("Show data from past X hours", min_value=1, max_value=72, value=24)
-        cutoff_time = pd.Timestamp.now() - pd.Timedelta(hours=hours)
-        df = df[df["Timestamp"] >= cutoff_time]
+# Time filter with fallback logic
+if "Timestamp" in df.columns and not df["Timestamp"].isna().all():
+    df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+    st.markdown("### ⏱️ Time Filter")
+    hours = st.slider("Show data from past X hours", min_value=1, max_value=72, value=24)
+    cutoff_time = pd.Timestamp.now() - pd.Timedelta(hours=hours)
+
+    # Only apply if it doesn't wipe out all data
+    filtered_df = df[df["Timestamp"] >= cutoff_time]
+    if not filtered_df.empty:
+        df = filtered_df
+    else:
+        st.warning("⚠️ No recent data found within selected time window — showing all data instead.")
 
     # Outage rate bar chart
     if "Outage Detected" in df.columns and not df["Outage Detected"].isna().all():
@@ -350,3 +357,4 @@ st.data_editor(
     hide_index=True,
     disabled=True      # read-only, just like the live table
 )
+
