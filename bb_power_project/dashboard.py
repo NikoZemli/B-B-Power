@@ -6,19 +6,6 @@ from streamlit_autorefresh import st_autorefresh
 import requests
 import os
 
-# ----- Load Data -----
-import pathlib
-csv_path = pathlib.Path(__file__).parent / "outage_results.csv"
-df = pd.read_csv(csv_path)
-
-# 🔧 FIX: Clean and validate lat/lon columns
-df["Latitude"] = pd.to_numeric(df["Latitude"], errors="coerce")
-df["Longitude"] = pd.to_numeric(df["Longitude"], errors="coerce")
-df = df.dropna(subset=["Latitude", "Longitude"])  # Remove rows with invalid lat/lon
-
-st.write("✅ Loaded data preview for map rendering:", df[["Address", "Latitude", "Longitude"]].head())
-st.write("📍 Number of valid locations on map:", len(df))
-
 # ── Outage history storage (standard-lib only) ────────────────────────────────
 import sqlite3, pathlib, datetime as dt
 
@@ -162,6 +149,15 @@ st.markdown("""
 import pathlib
 csv_path = pathlib.Path(__file__).parent / "outage_results.csv"
 df = pd.read_csv(csv_path)
+
+# 🔧 FIX: Clean and validate lat/lon columns
+df["Latitude"] = pd.to_numeric(df["Latitude"], errors="coerce")
+df["Longitude"] = pd.to_numeric(df["Longitude"], errors="coerce")
+df = df.dropna(subset=["Latitude", "Longitude"])  # Remove rows with invalid lat/lon
+
+# 🔍 DEBUG: Show raw data after cleaning
+st.write("✅ Valid coordinates loaded:", df[["Address", "Latitude", "Longitude"]].head())
+st.write("📍 Number of valid locations on map:", len(df))
 
 # ── Persist today’s status into the history DB ────────────────────────────────
 if {"Address", "Provider", "Outage Detected"}.issubset(df.columns):
@@ -354,4 +350,5 @@ st.data_editor(
     hide_index=True,
     disabled=True      # read-only, just like the live table
 )
+
 
