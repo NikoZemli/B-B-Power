@@ -5,6 +5,7 @@ from streamlit_folium import st_folium
 from streamlit_autorefresh import st_autorefresh
 import requests
 import os
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), "outage_results.csv"))
 
 # ── Outage history storage (standard-lib only) ────────────────────────────────
 import sqlite3, pathlib, datetime as dt
@@ -146,24 +147,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----- Load Data -----
-import pathlib
-csv_path = pathlib.Path(__file__).parent / "outage_results.csv"
-df = pd.read_csv(csv_path)
-
-# ✅ Clean coordinates
-df["Latitude"] = pd.to_numeric(df["Latitude"], errors="coerce")
-df["Longitude"] = pd.to_numeric(df["Longitude"], errors="coerce")
-df = df.dropna(subset=["Latitude", "Longitude"])
-
-# ✅ Normalize outage column
-if "Outage Detected" in df.columns:
-    df["Outage Detected"] = df["Outage Detected"].fillna(False).astype(bool)
-
-# ✅ Convert Timestamp if exists
-if "Timestamp" in df.columns:
-    df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
-
-
+df = pd.read_csv("outage_results.csv")
 
 # ── Persist today’s status into the history DB ────────────────────────────────
 if {"Address", "Provider", "Outage Detected"}.issubset(df.columns):
@@ -356,7 +340,3 @@ st.data_editor(
     hide_index=True,
     disabled=True      # read-only, just like the live table
 )
-
-
-
-
