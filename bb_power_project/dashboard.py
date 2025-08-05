@@ -308,14 +308,12 @@ else:
 if last_updated:
     st.markdown(f"<p style='margin-top: -10px; color: gray;'>🕒 Last Updated: {last_updated.strftime('%Y-%m-%d %H:%M:%S')}</p>", unsafe_allow_html=True)
 
-# ----- Time-Series Chart -----
-st.markdown("### 📈 Outages Over Time")
 if "Timestamp" in df.columns:
-    df["Timestamp"] = pd.to_datetime(df["Timestamp"])
-    time_summary = df.resample("10min", on="Timestamp")["Outage Detected"].sum().rename("Outages")
-    st.line_chart(time_summary)
-else:
-    st.info("ℹ️ Add a 'Timestamp' column in your CSV to enable outage trend analysis.")
+    st.markdown("### ⏱️ Time Filter")
+    hours = st.slider("Show data from past X hours", min_value=1, max_value=72, value=24)
+    cutoff_time = pd.Timestamp.now() - pd.Timedelta(hours=hours)
+    df = df[df["Timestamp"] >= cutoff_time]
+
 
 # ----- Table -----
 st.markdown("### 📋 Full Outage Table")
