@@ -189,35 +189,36 @@ with st.sidebar:
     if address_filter:
         df = df[df["Address"].str.contains(address_filter, case=False, na=False)]
 
-# Time filter with fallback logic
-if "Timestamp" in df.columns and not df["Timestamp"].isna().all():
-    df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
-    st.markdown("### ⏱️ Time Filter")
-    hours = st.slider("Show data from past X hours", min_value=1, max_value=72, value=24)
-    cutoff_time = pd.Timestamp.now() - pd.Timedelta(hours=hours)
+    # Time filter with fallback logic
+    if "Timestamp" in df.columns and not df["Timestamp"].isna().all():
+        df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+        st.markdown("### ⏱️ Time Filter")
+        hours = st.slider("Show data from past X hours", min_value=1, max_value=72, value=24)
+        cutoff_time = pd.Timestamp.now() - pd.Timedelta(hours=hours)
 
-    # Only apply if it doesn't wipe out all data
-    filtered_df = df[df["Timestamp"] >= cutoff_time]
-    if not filtered_df.empty:
-        df = filtered_df
-    else:
-        st.warning("⚠️ No recent data found within selected time window — showing all data instead.")
+        # Only apply if it doesn't wipe out all data
+        filtered_df = df[df["Timestamp"] >= cutoff_time]
+        if not filtered_df.empty:
+            df = filtered_df
+        else:
+            st.warning("⚠️ No recent data found within selected time window — showing all data instead.")
 
-    # Outage rate bar chart
-    if "Outage Detected" in df.columns and not df["Outage Detected"].isna().all():
-        outage_ratio = df.groupby("Provider")["Outage Detected"].mean().sort_values(ascending=False)
-        st.markdown("### ⚠️ Outage Rate")
-        st.bar_chart(outage_ratio)
+        # Outage rate bar chart
+        if "Outage Detected" in df.columns and not df["Outage Detected"].isna().all():
+            outage_ratio = df.groupby("Provider")["Outage Detected"].mean().sort_values(ascending=False)
+            st.markdown("### ⚠️ Outage Rate")
+            st.bar_chart(outage_ratio)
 
-    # Help section
-    with st.expander("ℹ️ What do these filters do?"):
-        st.write("""
-        - **Provider**: Limits the map and table to one utility company.
-        - **Address Search**: Find locations containing a specific keyword.
-        - **Time Filter**: Focus on recent outage events only.
-        """)
+        # Help section
+        with st.expander("ℹ️ What do these filters do?"):
+            st.write("""
+            - **Provider**: Limits the map and table to one utility company.
+            - **Address Search**: Find locations containing a specific keyword.
+            - **Time Filter**: Focus on recent outage events only.
+            """)
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 # ----- Header -----
 st.markdown(f"""
     <div class="bb-banner">
@@ -357,4 +358,5 @@ st.data_editor(
     hide_index=True,
     disabled=True      # read-only, just like the live table
 )
+
 
